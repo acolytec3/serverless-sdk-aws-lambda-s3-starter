@@ -1,0 +1,57 @@
+org: {your org here}
+app: {your app here}
+service: {your service here}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-s3-local
+  - serverless-offline-env
+  - serverless-offline
+  - serverless-prune-plugin
+
+custom:
+  serverless-offline-env:
+    path: .env
+  serverless-offline:
+    noPrependStageInUrl: true
+    noTimeout: true
+    port: 3000
+    host: localhost
+  s3:
+    port: 8000
+    directory: /tmp
+  prune:
+    automatic: true
+    number: 3
+  bucket: ${file(env.${opt:stage, self:provider.stage}.json):S3BUCKETNAME}
+  
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment: 
+    s3Endpoint: ${file(env.${opt:stage, self:provider.stage}.json):S3ENDPOINT}
+    s3AccessKey: ${file(env.${opt:stage, self:provider.stage}.json):S3ACCESSKEYID}
+    s3SecretAccessKey: ${file(env.${opt:stage, self:provider.stage}.json):S3SECRETACCESSKEY}
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - s3:PutObject
+      - s3:PutObjectAcl
+    Resource: 
+      - "arn:aws:s3:::${self:custom.bucket}/*"
+functions:
+  lambdaHandler:
+    handler: handlers/lambdaHandler.default
+    environment:
+      bucket: ${self:custom.bucket}
+    events:
+      - http:
+          path: lambdaHandler
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true 
+      - s3:
+          bucket: ${self:custom.bucket}
+

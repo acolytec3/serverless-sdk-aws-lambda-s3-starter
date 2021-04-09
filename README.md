@@ -4,6 +4,7 @@ A template repo for a simple AWS Lambda function with an S3 bucket built in leve
 
 ## Setup
 
+- Follow [these instructions](https://www.serverless.com/framework/docs/getting-started/) to set up Serverless SDK
 - Clone the repo
 - Copy the `env.example.json` and rename to `env.offline.json`
     - Configure any port/server settings as desired

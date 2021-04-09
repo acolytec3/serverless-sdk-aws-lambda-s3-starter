@@ -35,6 +35,7 @@ provider:
   iamRoleStatements:
   - Effect: Allow
     Action:
+      - s3:GetObject
       - s3:PutObject
       - s3:PutObjectAcl
     Resource: 
@@ -46,7 +47,7 @@ functions:
       bucket: ${self:custom.bucket}
     events:
       - http:
-          path: lambdaHandler
+          path: lambdaHandler/{id}
           method: get
           request:
             parameters:

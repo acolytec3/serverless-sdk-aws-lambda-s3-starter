@@ -1,17 +1,14 @@
-org: {your org here}
-app: {your app here}
-service: {your service here}
+org: {{org}}
+app: {{app}}
+service: {{service}}
 
 plugins:
   - serverless-plugin-typescript
   - serverless-s3-local
-  - serverless-offline-env
   - serverless-offline
   - serverless-prune-plugin
 
 custom:
-  serverless-offline-env:
-    path: .env
   serverless-offline:
     noPrependStageInUrl: true
     noTimeout: true
@@ -23,15 +20,15 @@ custom:
   prune:
     automatic: true
     number: 3
-  bucket: ${file(env.${opt:stage, self:provider.stage}.json):S3BUCKETNAME}
+  bucket: {{s3BucketName}}
   
 provider:
   name: aws
   runtime: nodejs12.x
   environment: 
-    s3Endpoint: ${file(env.${opt:stage, self:provider.stage}.json):S3ENDPOINT}
-    s3AccessKey: ${file(env.${opt:stage, self:provider.stage}.json):S3ACCESSKEYID}
-    s3SecretAccessKey: ${file(env.${opt:stage, self:provider.stage}.json):S3SECRETACCESSKEY}
+    s3Endpoint: {{{s3endpoint}}}
+    s3AccessKey: {{s3accessKeyId}}
+    s3SecretAccessKey: {{s3secretAccessKey}}
   iamRoleStatements:
   - Effect: Allow
     Action:

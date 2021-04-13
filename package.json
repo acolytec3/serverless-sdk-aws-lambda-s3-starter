@@ -7,15 +7,18 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.61",
+    "mustache": "^4.2.0",
     "serverless": "^1.78.1",
     "serverless-offline": "^6.5.0",
     "serverless-offline-env": "^0.2.0",
     "serverless-plugin-typescript": "^1.1.9",
+    "serverless-prune-plugin": "^1.4.4",
     "serverless-s3-local": "^0.6.14",
-    "typescript": "^3.9.7",
-    "serverless-prune-plugin": "^1.4.4"
+    "typescript": "^3.9.7"
   },
   "scripts": {
+    "config-local": "mustache env.offline.json serverless.template.yml serverless.yml",
+    "config-dev": "mustache env.dev.json serverless.template.yml serverless.yml",
     "local-server": "npx serverless offline --stage offline",
     "deploy": "npx serverless deploy --stage dev"
   }

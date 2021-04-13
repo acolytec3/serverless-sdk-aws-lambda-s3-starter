@@ -19,7 +19,7 @@
   "scripts": {
     "config-local": "mustache env.offline.json serverless.template.yml serverless.yml",
     "config-dev": "mustache env.dev.json serverless.template.yml serverless.yml",
-    "local-server": "npx serverless offline --stage offline",
-    "deploy": "npx serverless deploy --stage dev"
+    "local-server": "npm run config-local && npx serverless offline --stage offline",
+    "deploy": "npm run config-dev && npx serverless deploy --stage dev"
   }
 }

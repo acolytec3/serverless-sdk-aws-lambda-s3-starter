@@ -5,17 +5,16 @@ A template repo for a simple AWS Lambda function with an S3 bucket built in leve
 ## Setup
 
 - Follow [these instructions](https://www.serverless.com/framework/docs/getting-started/) to set up Serverless SDK
+- Ensure you set up an app and service on the Serverless SDK dashboard as described above
 - Clone the repo
-- Copy the `env.example.json` and rename to `env.offline.json`
-    - Configure any port/server settings as desired
+- Copy `env.example.json` and rename to `env.offline.json`
 - Copy `env.example.json` to `env.dev.json` 
 - `npm i`
 
 ## Configuration
 
-In `serverless.yml`
-- Add the org, app name, and service name from your Serverless Dashboard
-
+This repo uses [Mustache](https://mustache.github.io/) for setting up config options so update appropriate fields in `env.offline.json` and `env.dev.json`.
+At a minimum, update the `org`, `app`, and `service` fields to match the corresponding values you created on the Serverless dashboard.
 ## Usage
 
 - For local testing
